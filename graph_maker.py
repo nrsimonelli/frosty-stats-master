@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from itertools import combinations
 
 
-class HeatMapGraphMaker:
+class DataFormatter:
     def __init__(self, fn, tie_breakers=False):
         self.df = pd.read_csv(fn)
         self.tie_breakers = tie_breakers
@@ -22,7 +22,8 @@ class HeatMapGraphMaker:
         self.df['t2'] = self.df[['t2_player1', 't2_player2', 't2_player3', 't2_player4']].values.tolist()
 
     def _handle_tiebreakers(self):
-        self.df = self.df[self.df['tiebreaker'] == 0].copy()
+        if self.tie_breakers is False:
+            self.df = self.df[self.df['tiebreaker'] == 0].copy()
 
     def _stack_data(self):
         dfs = []

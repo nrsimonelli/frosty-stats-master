@@ -4,7 +4,7 @@ import dash_html_components as html
 import plotly.figure_factory as ff
 import plotly.express as px
 import pandas as pd
-from graph_maker import HeatMapGraphMaker
+from graph_maker import DataFormatter
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -12,11 +12,11 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
-map_maker = HeatMapGraphMaker('/Users/ryan.osgar/Documents/repos/frosty-stats-master/frosty-stats-master/mini_data.csv')
-wr = map_maker.create_wr_heatmap()
+data_formatter = DataFormatter('/Users/ryan.osgar/Documents/repos/frosty-stats-master/frosty-stats-master/mini_data.csv')
+wr = data_formatter.create_wr_heatmap()
 wr = wr.applymap(lambda x: round(x, 2))
 
-counts = map_maker.create_count_heatmap()
+counts = data_formatter.create_count_heatmap()
 # counts_text = counts.applymap(lambda x: '{:.0f}'.format(x))
 
 fig = ff.create_annotated_heatmap(wr.values,
@@ -27,30 +27,44 @@ fig = ff.create_annotated_heatmap(wr.values,
                                   reversescale=True,
                                   font_colors=['black'])
 
-
-
-fig2 = ff.create_annotated_heatmap(counts.values, x=list(counts.index), y=list(counts.index), colorscale='Reds', reversescale=False)
+fig2 = ff.create_annotated_heatmap(counts.values,
+                                   x=list(counts.index),
+                                   y=list(counts.index),
+                                   colorscale='Reds',
+                                   reversescale=False)
 
 
 app.layout = html.Div(children=[
 
     html.Div([
-        html.H3('Total Games Played'),
-        dcc.Graph(
-            id='example-graph2',
-            figure=fig2,
-            style={"height": "100%", "width": "100%"}
-        ),
-    ], className='six columns'),
+        html.Div([
+            html.H3('Total Games Played'),
+            dcc.Graph(
+                id='example-graph2',
+                figure=fig2,
+                style={"height": "100%", "width": "150%"}
+            ),
+        ], className='six columns'),
+
+        html.Div([
+            html.H3('Win %'),
+            dcc.Graph(
+                id='example-graph1',
+                figure=fig,
+                style={"height": "100%", "width": "150%"}
+            ),
+        ], className='six columns'),
+    ], className='container'),
+
 
     html.Div([
         html.H3('Win %'),
         dcc.Graph(
-            id='example-graph1',
+            id='example-graph3',
             figure=fig,
             style={"height": "100%", "width": "100%"}
         ),
-    ], className='six columns')
+    ], className='container')
 
 ])
 

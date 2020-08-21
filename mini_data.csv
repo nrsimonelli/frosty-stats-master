@@ -98,9 +98,9 @@ game_id,t1_player1,t1_player2,t1_player3,t1_player4,t2_player1,t2_player2,t2_pla
 97,Charles,Ryan,Beef,KJ,Simo,Jagt,Charlie,Connor,0,1,1
 98,Ryan,Simo,Charlie,Connor,Charles,Jagt,Beef,KJ,3,2,
 99,Ryan,Simo,Charlie,Connor,Charles,Jagt,Beef,KJ,3,2,
-100,Ryan,Charlie,Connor,KJ,Beef,Simo,Jagt,Charles,3,3,
-101,Ryan,Charlie,Connor,KJ,Beef,Simo,Jagt,Charles,2,2,
+100,Ryan,Charlie,Connor,KJ,Beef,Simo,Jagt,Charles,3,2,
+101,Ryan,Charlie,Connor,KJ,Beef,Simo,Jagt,Charles,3,2,
 102,Ryan,Charlie,Connor,KJ,Beef,Simo,Jagt,Charles,1,0,1
-103,Beef,Ryan,Jagt,Connor,Simo,Charlie,Charles,KJ,2,3,
+103,Beef,Ryan,Jagt,Connor,Simo,Charlie,Charles,KJ,3,2,
 104,Beef,Ryan,Jagt,Connor,Simo,Charlie,Charles,KJ,2,3,
 105,Ryan,Charlie,KJ,Charles,Connor,Jagt,Beef,Simo,5,1,
