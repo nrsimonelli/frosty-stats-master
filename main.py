@@ -40,10 +40,22 @@ def read_database_version():
 print("Printing Database version:")
 read_database_version()
 
+def get_all_games():
+  try:
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql_select_query = """SELECT * FROM games;"""
+    cursor.execute(sql_select_query)
+    records = cursor.fetchall()
+    return records
+  except (Exception, psycopg2.Error) as error:
+      print("Error getting games", error)
+  finally:
+      close_connection(connection)
 
 class Frosty(Resource):
-    def get(self):
-        return 201
+  def get(self):
+    return get_all_games()
 
 
 api.add_resource(Frosty, "/")
