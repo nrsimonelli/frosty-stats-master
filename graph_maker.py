@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from itertools import combinations
 
 
@@ -45,42 +44,8 @@ class HeatMapGraphMaker:
         return df_stacked.dropna().reset_index(drop=True)
 
     def create_count_heatmap(self):
-        fig, ax = plt.subplots(figsize=(12, 10))
-        ct = pd.crosstab(self.df_stacked[0], self.df_stacked[1]).astype(float)
-        mask = np.triu(np.ones_like(ct, dtype=np.bool))
-        sns.heatmap(ct,
-                    fmt='0.0f',
-                    annot=True,
-                    cmap='Blues',
-                    cbar=False,
-                    linewidths=0.5,
-                    mask=mask, )
-
-        plt.title("Games Played (no tiebreakers)")
-        plt.yticks(rotation=0)
-        plt.xlabel('')
-        plt.ylabel('')
-        return plt.show()
+        return pd.crosstab(self.df_stacked[0], self.df_stacked[1]).astype(float)
 
     def create_wr_heatmap(self):
-        fig, ax = plt.subplots(figsize=(12, 10))
-        ct2 = pd.crosstab(self.df_stacked[0], self.df_stacked[1], aggfunc='mean', values=self.df_stacked['win'])
-        mask = np.triu(np.ones_like(ct2, dtype=np.bool))
-        sns.heatmap(ct2,
-                    fmt='0.3f',
-                    annot=True,
-                    cmap=sns.diverging_palette(220, 10, as_cmap=True),
-                    cbar=False,
-                    linewidths=0.5,
-                    mask=mask, )
+        return pd.crosstab(self.df_stacked[0], self.df_stacked[1], aggfunc='mean', values=self.df_stacked['win'])
 
-        plt.title("Win Rate (no tiebreakers)")
-        plt.yticks(rotation=0)
-        plt.xlabel('')
-        plt.ylabel('')
-        return plt.show()
-
-if __name__ == '__main__':
-    graph_maker = HeatMapGraphMaker("/Users/ryan.osgar/Desktop/mini_data.csv")
-    graph_maker.create_count_heatmap()
-    graph_maker.create_wr_heatmap()
