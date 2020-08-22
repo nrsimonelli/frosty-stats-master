@@ -1,14 +1,25 @@
 from flask import Flask
 from flask_restful import Api, Resource
+import dash
+import dash_html_components as html
 
 import psycopg2
 
 app = Flask(__name__)
+server = flask.Flask(__name__)
 api = Api(app)
 # assign database name & location to variable "db"
 db = "dbname=%s host=%s " % ('mini_stats', 'localhost')
 schema = "schema.sql"
 
+def index():
+  return 'hello'
+
+app = dash.Dash(
+  __name__,
+  server=server,
+  routes_pathname_prefix='/dash/'
+)
 
 # initializes connection to PostgreSQL
 def get_connection():
@@ -60,5 +71,9 @@ class Frosty(Resource):
 
 api.add_resource(Frosty, "/")
 
+app.layout = html.Div("My Dash app")
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+
